@@ -44,6 +44,10 @@ const SendButton = styled.button`
   }
 `;
 
+const NoChatSelectedMessage = styled.h2`
+  padding: 0 1rem;
+`;
+
 interface ChatHistoryProps {
   selectedUserId: number | null;
   chatHistoryInfo: IUserChat[];
@@ -95,7 +99,11 @@ const ChatHistory: FC<ChatHistoryProps> = ({
   };
 
   if (!selectedUserId || !selectedChat) {
-    return <p>Select a friend to start chatting</p>;
+    return (
+      <NoChatSelectedMessage>
+        Select a friend to start chatting
+      </NoChatSelectedMessage>
+    );
   }
 
   return (
