@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ChatHistory from "./ChatHistory";
 import FriendsList from "./FriendsList";
+import friendsData from "../data/friendsData.json";
+import chatHistoryData from "../data/chatHistoryData.json";
+import { IFriend, IUserChat } from "../types";
+import { geFriendsListChronologically } from "../utility";
 
 const AppContainer = styled.div`
   display: flex;
@@ -18,13 +22,20 @@ const FriendsSection = styled.div`
 
 const ChatSection = styled.div`
   flex: 1;
-  background-color: #f1f1f1;
+  background-color: #fff;
   padding: 1rem;
   overflow-y: auto;
 `;
 
 const App: React.FC = () => {
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+  const [friendsInfo, setFriendsInfo] = useState<IFriend[]>([]);
+  const [chatHistoryInfo, setChatHistoryInfo] = useState<IUserChat[]>([]);
+
+  useEffect(() => {
+    setFriendsInfo(geFriendsListChronologically(friendsData));
+    setChatHistoryInfo(chatHistoryData);
+  }, []);
 
   return (
     <AppContainer>
@@ -32,10 +43,16 @@ const App: React.FC = () => {
         <FriendsList
           setSelectedUserId={setSelectedUserId}
           selectedUserId={selectedUserId}
+          friendsInfo={friendsInfo}
         />
       </FriendsSection>
       <ChatSection>
-        <ChatHistory selectedUserId={selectedUserId} />
+        <ChatHistory
+          selectedUserId={selectedUserId}
+          chatHistoryInfo={chatHistoryInfo}
+          friendsInfo={friendsInfo}
+          setChatHistoryInfo={setChatHistoryInfo}
+        />
       </ChatSection>
     </AppContainer>
   );

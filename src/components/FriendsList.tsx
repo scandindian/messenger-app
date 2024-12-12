@@ -1,7 +1,7 @@
 import { useEffect, useState, Dispatch, SetStateAction, FC } from "react";
 import styled from "styled-components";
-import { geFriendsListChronologically } from "../utility";
 import FriendItem from "./FriendItem";
+import { IFriend } from "../types";
 
 const FriendsContainer = styled.div`
   display: flex;
@@ -27,24 +27,24 @@ const SearchBox = styled.input`
 interface FriendsListProps {
   setSelectedUserId: Dispatch<SetStateAction<number | null>>;
   selectedUserId: number | null;
+  friendsInfo: IFriend[];
 }
-
-const friendsListData = geFriendsListChronologically();
 
 const FriendsList: FC<FriendsListProps> = ({
   setSelectedUserId,
   selectedUserId,
+  friendsInfo,
 }) => {
   const [searchValue, setSearchValue] = useState("");
-  const [filteredFriends, setFilteredFriends] = useState(friendsListData);
+  const [filteredFriends, setFilteredFriends] = useState(friendsInfo);
 
   useEffect(() => {
     setFilteredFriends(
-      friendsListData.filter((friend) =>
+      friendsInfo.filter((friend) =>
         friend.name.toLowerCase().includes(searchValue.toLowerCase())
       )
     );
-  }, [searchValue]);
+  }, [searchValue, friendsInfo]);
 
   useEffect(() => {
     if (filteredFriends.length > 0) {

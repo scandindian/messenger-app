@@ -1,46 +1,98 @@
-import React, { useState } from "react";
+import { useState, useEffect, FC } from "react";
 import styled from "styled-components";
-import chatHistoryData from "../data/chatHistoryData.json";
-import friendsData from "../data/friendsData.json";
+import { IFriend, IUserChat } from "../types";
+import MessageList from "./MessageList";
 
 const FullChatContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   padding: 0 1rem;
 `;
 
-const MessageList = styled.ul`
-  list-style: none;
-  padding: 0;
+const MessageInputContainer = styled.div`
+  display: flex;
+  padding: 0.5rem 0;
 `;
 
-const MessageItem = styled.li<{ $isMe: boolean }>`
-  margin-bottom: 0.5rem;
-  padding: 0.5rem;
-  background-color: ${(props) => (props.$isMe ? "#d1ffd1" : "#f1f1f1")};
-  align-self: ${(props) => (props.$isMe ? "flex-end" : "flex-start")};
+const MessageInput = styled.input`
+  flex: 1;
+  padding: 1rem;
+  font-size: 1rem;
+  background-color: #eee;
+  border: 1px solid #e0e0e0;
   border-radius: 5px;
-  max-width: 70%;
+
+  &:focus {
+    outline: none;
+    border-color: #a9a9a9;
+  }
 `;
 
-const Timestamp = styled.span`
-  display: block;
-  font-size: 0.75rem;
-  color: #888;
+const SendButton = styled.button`
+  margin-left: 0.5rem;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `;
 
-const ChatHistory: React.FC<{ selectedUserId: number | null }> = ({
+interface ChatHistoryProps {
+  selectedUserId: number | null;
+  chatHistoryInfo: IUserChat[];
+  friendsInfo: IFriend[];
+  setChatHistoryInfo: (updatedChatHistory: IUserChat[]) => void;
+}
+
+const ChatHistory: FC<ChatHistoryProps> = ({
   selectedUserId,
+  chatHistoryInfo,
+  friendsInfo,
+  setChatHistoryInfo,
 }) => {
-  const [selectedChat, setSelectedChat] = useState(
-    chatHistoryData.find((chat) => chat.userId === selectedUserId)
+  const [selectedChat, setSelectedChat] = useState<IUserChat | undefined>(
+    chatHistoryInfo.find((chat) => chat.userId === selectedUserId)
   );
+  const [newMessage, setNewMessage] = useState("");
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (selectedUserId !== null) {
       setSelectedChat(
-        chatHistoryData.find((chat) => chat.userId === selectedUserId)
+        chatHistoryInfo.find((chat) => chat.userId === selectedUserId)
       );
     }
-  }, [selectedUserId]);
+  }, [selectedUserId, chatHistoryInfo]);
+
+  const handleSendMessage = () => {
+    if (!newMessage.trim() || !selectedChat) return;
+
+    const updatedChat = {
+      ...selectedChat,
+      chatHistory: [
+        ...selectedChat.chatHistory,
+        {
+          id: Date.now(),
+          content: newMessage.trim(),
+          timestamp: new Date().toISOString(),
+          sender: "me",
+        },
+      ],
+    };
+
+    const updatedChatHistory = chatHistoryInfo.map((chat) =>
+      chat.userId === selectedUserId ? updatedChat : chat
+    );
+
+    setChatHistoryInfo(updatedChatHistory);
+    setNewMessage("");
+  };
 
   if (!selectedUserId || !selectedChat) {
     return <p>Select a friend to start chatting</p>;
@@ -49,18 +101,18 @@ const ChatHistory: React.FC<{ selectedUserId: number | null }> = ({
   return (
     <FullChatContainer>
       <h2>
-        Chat with {friendsData.find((f) => f.id === selectedUserId)?.name}
+        Chat with {friendsInfo.find((f) => f.id === selectedUserId)?.name}
       </h2>
-      <MessageList>
-        {selectedChat.chatHistory.map((message) => (
-          <MessageItem key={message.id} $isMe={message.sender === "me"}>
-            <p>{message.content}</p>
-            <Timestamp>
-              {new Date(message.timestamp).toLocaleString()}
-            </Timestamp>
-          </MessageItem>
-        ))}
-      </MessageList>
+      <MessageList selectedChat={selectedChat} />
+      <MessageInputContainer>
+        <MessageInput
+          type="text"
+          placeholder="Type your message..."
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+        />
+        <SendButton onClick={handleSendMessage}>Send</SendButton>
+      </MessageInputContainer>
     </FullChatContainer>
   );
 };

@@ -1,7 +1,6 @@
 export interface IMessage {
   content: string;
   timestamp: string;
-  isRead: boolean;
 }
 
 export interface IFriend {
@@ -10,4 +9,16 @@ export interface IFriend {
   profilePicture: string;
   status: string;
   lastMessage: IMessage;
+}
+
+export interface IChat {
+  id: number;
+  sender: string;
+  content: string;
+  timestamp: string;
+}
+
+export interface IUserChat {
+  userId: number;
+  chatHistory: IChat[];
 }

@@ -1,6 +1,6 @@
-import friendsData from "../data/friendsData.json";
+import { IFriend } from "../types";
 
-export const geFriendsListChronologically = () => {
+export const geFriendsListChronologically = (friendsData: IFriend[]) => {
   return friendsData.sort(
     (a, b) =>
       new Date(b.lastMessage.timestamp).getTime() -
