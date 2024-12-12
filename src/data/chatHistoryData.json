@@ -1,0 +1,110 @@
+[
+  {
+    "userId": 1,
+    "chatHistory": [
+      {
+        "id": 101,
+        "sender": "me",
+        "content": "Hey, are we still on for tonight?",
+        "timestamp": "2024-12-12T14:30:00Z"
+      },
+      {
+        "id": 102,
+        "sender": "Alice Johnson",
+        "content": "Yes! What time works for you?",
+        "timestamp": "2024-12-12T14:32:00Z"
+      },
+      {
+        "id": 103,
+        "sender": "me",
+        "content": "How about 7 PM?",
+        "timestamp": "2024-12-12T14:34:00Z"
+      }
+    ]
+  },
+  {
+    "userId": 2,
+    "chatHistory": [
+      {
+        "id": 201,
+        "sender": "me",
+        "content": "Can you send me the files?",
+        "timestamp": "2024-12-12T12:15:00Z"
+      },
+      {
+        "id": 202,
+        "sender": "Bob Smith",
+        "content": "Sure, I'll send them in a bit.",
+        "timestamp": "2024-12-12T12:16:00Z"
+      }
+    ]
+  },
+  {
+    "userId": 3,
+    "chatHistory": [
+      {
+        "id": 301,
+        "sender": "Charlie Brown",
+        "content": "Thanks! Got it.",
+        "timestamp": "2024-12-11T18:45:00Z"
+      },
+      {
+        "id": 302,
+        "sender": "me",
+        "content": "Let me know if you need anything else.",
+        "timestamp": "2024-12-11T18:50:00Z"
+      }
+    ]
+  },
+  {
+    "userId": 4,
+    "chatHistory": [
+      {
+        "id": 401,
+        "sender": "Diana Prince",
+        "content": "Let's catch up soon!",
+        "timestamp": "2024-12-12T16:00:00Z"
+      },
+      {
+        "id": 402,
+        "sender": "me",
+        "content": "Absolutely! How about this weekend?",
+        "timestamp": "2024-12-12T16:05:00Z"
+      }
+    ]
+  },
+  {
+    "userId": 5,
+    "chatHistory": [
+      {
+        "id": 501,
+        "sender": "Ethan Hunt",
+        "content": "I'll call you back in 10.",
+        "timestamp": "2024-12-12T13:45:00Z"
+      },
+      {
+        "id": 502,
+        "sender": "me",
+        "content": "Okay, talk soon!",
+        "timestamp": "2024-12-12T13:46:00Z"
+      }
+    ]
+  },
+  {
+    "userId": 6,
+    "chatHistory": [
+      {
+        "id": 601,
+        "sender": "me",
+        "content": "Happy birthday!",
+        "timestamp": "2024-12-10T09:00:00Z"
+      },
+      {
+        "id": 602,
+        "sender": "Fiona Gallagher",
+        "content": "Thank you! 🎉",
+        "timestamp": "2024-12-10T09:05:00Z"
+      }
+    ]
+  }
+]
