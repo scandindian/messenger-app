@@ -2,46 +2,13 @@ import { useState, useEffect, FC } from "react";
 import styled from "styled-components";
 import { IFriend, IUserChat } from "../types";
 import MessageList from "./MessageList";
+import MessageBox from "./MessageBox";
 
 const FullChatContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
   padding: 0 1rem;
-`;
-
-const MessageInputContainer = styled.div`
-  display: flex;
-  padding: 0.5rem 0;
-`;
-
-const MessageInput = styled.input`
-  flex: 1;
-  padding: 1rem;
-  font-size: 1rem;
-  background-color: #eee;
-  border: 1px solid #e0e0e0;
-  border-radius: 5px;
-
-  &:focus {
-    outline: none;
-    border-color: #a9a9a9;
-  }
-`;
-
-const SendButton = styled.button`
-  margin-left: 0.5rem;
-  padding: 0.5rem 2rem;
-  font-size: 1rem;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0056b3;
-  }
 `;
 
 const NoChatSelectedMessage = styled.h2`
@@ -64,7 +31,6 @@ const ChatHistory: FC<ChatHistoryProps> = ({
   const [selectedChat, setSelectedChat] = useState<IUserChat | undefined>(
     chatHistoryInfo.find((chat) => chat.userId === selectedUserId)
   );
-  const [newMessage, setNewMessage] = useState("");
 
   useEffect(() => {
     if (selectedUserId !== null) {
@@ -73,30 +39,6 @@ const ChatHistory: FC<ChatHistoryProps> = ({
       );
     }
   }, [selectedUserId, chatHistoryInfo]);
-
-  const handleSendMessage = () => {
-    if (!newMessage.trim() || !selectedChat) return;
-
-    const updatedChat = {
-      ...selectedChat,
-      chatHistory: [
-        ...selectedChat.chatHistory,
-        {
-          id: Date.now(),
-          content: newMessage.trim(),
-          timestamp: new Date().toISOString(),
-          sender: "me",
-        },
-      ],
-    };
-
-    const updatedChatHistory = chatHistoryInfo.map((chat) =>
-      chat.userId === selectedUserId ? updatedChat : chat
-    );
-
-    setChatHistoryInfo(updatedChatHistory);
-    setNewMessage("");
-  };
 
   if (!selectedUserId || !selectedChat) {
     return (
@@ -112,15 +54,12 @@ const ChatHistory: FC<ChatHistoryProps> = ({
         Chat with {friendsInfo.find((f) => f.id === selectedUserId)?.name}
       </h2>
       <MessageList selectedChat={selectedChat} />
-      <MessageInputContainer>
-        <MessageInput
-          type="text"
-          placeholder="Type your message..."
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-        />
-        <SendButton onClick={handleSendMessage}>Send</SendButton>
-      </MessageInputContainer>
+      <MessageBox
+        selectedUserId={selectedUserId}
+        selectedChat={selectedChat}
+        setChatHistoryInfo={setChatHistoryInfo}
+        chatHistoryInfo={chatHistoryInfo}
+      />
     </FullChatContainer>
   );
 };
