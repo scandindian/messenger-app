@@ -3,66 +3,36 @@
     "id": 1,
     "name": "Alice Johnson",
     "profilePicture": "https://picsum.photos/seed/alice/200",
-    "status": "online",
-    "lastMessage": {
-      "content": "Hey, are we still on for tonight?",
-      "timestamp": "2024-12-12T14:30:00Z",
-      "isRead": true
-    }
+    "status": "online"
   },
   {
     "id": 2,
     "name": "Bob Smith",
     "profilePicture": "https://picsum.photos/seed/bob/200",
-    "status": "offline",
-    "lastMessage": {
-      "content": "Can you send me the files?",
-      "timestamp": "2024-12-12T12:15:00Z",
-      "isRead": false
-    }
+    "status": "offline"
   },
   {
     "id": 3,
     "name": "Charlie Brown",
     "profilePicture": "https://picsum.photos/seed/charlie/200",
-    "status": "away",
-    "lastMessage": {
-      "content": "Thanks! Got it.",
-      "timestamp": "2024-12-11T18:45:00Z",
-      "isRead": true
-    }
+    "status": "away"
   },
   {
     "id": 4,
     "name": "Diana Prince",
     "profilePicture": "https://picsum.photos/seed/diana/200",
-    "status": "online",
-    "lastMessage": {
-      "content": "Let's catch up soon!",
-      "timestamp": "2024-12-12T16:00:00Z",
-      "isRead": false
-    }
+    "status": "online"
   },
   {
     "id": 5,
     "name": "Ethan Hunt",
     "profilePicture": "https://picsum.photos/seed/ethan/200",
-    "status": "busy",
-    "lastMessage": {
-      "content": "I'll call you back in 10.",
-      "timestamp": "2024-12-12T13:45:00Z",
-      "isRead": false
-    }
+    "status": "busy"
   },
   {
     "id": 6,
     "name": "Fiona Gallagher",
     "profilePicture": "https://picsum.photos/seed/fiona/200",
-    "status": "offline",
-    "lastMessage": {
-      "content": "Happy birthday!",
-      "timestamp": "2024-12-10T09:00:00Z",
-      "isRead": true
-    }
+    "status": "offline"
   }
 ]
