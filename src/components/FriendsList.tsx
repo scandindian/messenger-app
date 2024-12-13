@@ -7,6 +7,12 @@ const FriendsContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 1rem;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+  }
 `;
 
 const SearchBox = styled.input`
@@ -17,12 +23,41 @@ const SearchBox = styled.input`
   border-radius: 5px;
   background-color: #222;
   color: #fff;
-
+  
   &:focus {
     outline: none;
     border-color: #777;
   }
+
+  @media screen and (max-width: 768px) {
+    margin: 0;
+    width: auto;
+  }
 `;
+
+const FriendsListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+  }
+`;
+
+const FriendPlaceholder = styled.p`
+  color: #aaa;
+  text-align: center;
+  margin: 1rem 0;
+
+  @media screen and (max-width: 768px) {
+    margin: 1rem auto;
+  }
+`;
+
 
 interface FriendsListProps {
   setSelectedUserId: Dispatch<SetStateAction<number | null>>;
@@ -62,15 +97,19 @@ const FriendsList: FC<FriendsListProps> = ({
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
-      {filteredFriends.map((friend) => (
-        <FriendItem
-          key={friend.id}
-          friend={friend}
-          setSelectedUserId={setSelectedUserId}
-          selectedUserId={selectedUserId}
-        />
-      ))}
-      {filteredFriends.length === 0 && <p>No friends found.</p>}
+      <FriendsListContainer>
+        {filteredFriends.map((friend) => (
+          <FriendItem
+            key={friend.id}
+            friend={friend}
+            setSelectedUserId={setSelectedUserId}
+            selectedUserId={selectedUserId}
+          />
+        ))}
+      </FriendsListContainer>
+      {filteredFriends.length === 0 && (
+        <FriendPlaceholder>No friends found.</FriendPlaceholder>
+      )}
     </FriendsContainer>
   );
 };
