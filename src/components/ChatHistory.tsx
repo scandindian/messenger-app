@@ -40,6 +40,7 @@ const ChatHistory: FC<ChatHistoryProps> = ({
     }
   }, [selectedUserId, chatHistoryInfo]);
 
+  // In case there is no friend
   if (!selectedUserId || !selectedChat) {
     return (
       <NoChatSelectedMessage>
