@@ -1,6 +1,6 @@
 # Messenger App
 
-This is a simple messenger application built with React, TypeScript, and styled-components.
+This is a simple messenger application built with React, TypeScript, and styled-components. Access the app [here](https://my-messenger-app.netlify.app/), deployed with Netlify.
 
 ### Steps to Setup Locally
 
@@ -21,14 +21,6 @@ This is a simple messenger application built with React, TypeScript, and styled-
   ```
 
   The app will be available at `http://localhost:3000/`.
-
-- **Build the Project**
-
-  To build the project for production, use:
-
-  ```bash
-  npm run build
-  ```
 
 - **Run Tests**
 
