@@ -3,8 +3,13 @@ import react from "@vitejs/plugin-react";
 import { ViteUserConfig } from "vitest/config";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react({
+      include: "**/*.tsx",
+    }),
+  ],
   server: {
+    host: "127.0.0.1",
     port: 3000,
   },
   test: {
