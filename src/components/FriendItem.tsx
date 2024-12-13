@@ -2,7 +2,7 @@ import { FC, Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { IFriend } from "../types";
 
-const FriendItemContainer = styled.div<{ isSelected: boolean }>`
+const FriendItemContainer = styled.div<{ $isSelected: boolean }>`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -10,11 +10,11 @@ const FriendItemContainer = styled.div<{ isSelected: boolean }>`
   margin: 1rem 0 0 0;
   cursor: pointer;
   border-radius: 5px;
-  background-color: ${({ isSelected }) =>
-    isSelected ? "#555" : "transparent"};
+  background-color: ${({ $isSelected }) =>
+    $isSelected ? "#555" : "transparent"};
 
   &:hover {
-    background-color: ${({ isSelected }) => (isSelected ? "#555" : "#444")};
+    background-color: ${({ $isSelected }) => ($isSelected ? "#555" : "#444")};
   }
 `;
 
@@ -52,7 +52,7 @@ const FriendItem: FC<FriendItemProps> = ({
   return (
     <FriendItemContainer
       key={friend.id}
-      isSelected={friend.id === selectedUserId}
+      $isSelected={friend.id === selectedUserId}
       onClick={() => {
         setSelectedUserId(friend.id);
       }}

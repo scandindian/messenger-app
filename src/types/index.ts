@@ -1,4 +1,6 @@
 export interface IMessage {
+  id: number;
+  sender: string;
   content: string;
   timestamp: string;
 }
@@ -11,14 +13,7 @@ export interface IFriend {
   lastMessage: IMessage;
 }
 
-export interface IChat {
-  id: number;
-  sender: string;
-  content: string;
-  timestamp: string;
-}
-
 export interface IUserChat {
   userId: number;
-  chatHistory: IChat[];
+  chatHistory: IMessage[];
 }

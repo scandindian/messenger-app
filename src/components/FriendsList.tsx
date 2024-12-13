@@ -64,6 +64,7 @@ const FriendsList: FC<FriendsListProps> = ({
       />
       {filteredFriends.map((friend) => (
         <FriendItem
+          key={friend.id}
           friend={friend}
           setSelectedUserId={setSelectedUserId}
           selectedUserId={selectedUserId}
