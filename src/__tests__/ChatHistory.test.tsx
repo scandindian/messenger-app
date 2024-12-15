@@ -3,7 +3,7 @@ import { describe, it, expect, vi } from "vitest";
 import ChatHistory from "../components/ChatHistory";
 
 vi.mock("../utility", () => ({
-  geFriendsListChronologically: vi.fn().mockReturnValue([
+  getFriendsListChronologically: vi.fn().mockReturnValue([
     {
       id: 1,
       name: "Alice Johnson",

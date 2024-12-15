@@ -5,7 +5,7 @@ import FriendsList from "./FriendsList";
 import friendsData from "../data/friendsData.json";
 import chatHistoryData from "../data/chatHistoryData.json";
 import { IFriend, IUserChat } from "../types";
-import { geFriendsListChronologically } from "../utility";
+import { getFriendsListChronologically } from "../utility";
 
 const AppContainer = styled.div`
   display: flex;
@@ -46,7 +46,7 @@ const App: React.FC = () => {
   const [chatHistoryInfo, setChatHistoryInfo] = useState<IUserChat[]>([]);
 
   useEffect(() => {
-    setFriendsInfo(geFriendsListChronologically(friendsData));
+    setFriendsInfo(getFriendsListChronologically(friendsData));
     setChatHistoryInfo(chatHistoryData);
   }, []);
 

@@ -1,10 +1,10 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import App from "../components/App";
-import { geFriendsListChronologically } from "../utility";
+import { getFriendsListChronologically } from "../utility";
 import { describe, it, expect, vi } from "vitest";
 
 vi.mock("../utility", () => ({
-  geFriendsListChronologically: vi.fn().mockReturnValue([
+  getFriendsListChronologically: vi.fn().mockReturnValue([
     {
       id: 1,
       name: "Alice Johnson",
@@ -124,10 +124,10 @@ describe("App Component", () => {
     expect(message).toBeInTheDocument();
   });
 
-  it("calls geFriendsListChronologically on render", async () => {
+  it("calls getFriendsListChronologically on render", async () => {
     render(<App />);
 
-    expect(geFriendsListChronologically).toHaveBeenCalled();
+    expect(getFriendsListChronologically).toHaveBeenCalled();
   });
 
   it("renders the chat history safely", async () => {
