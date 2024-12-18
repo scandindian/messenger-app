@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import styled from "styled-components";
 import ChatHistory from "./ChatHistory";
 import FriendsList from "./FriendsList";
@@ -40,7 +40,7 @@ const ChatSection = styled.div`
   }
 `;
 
-const App: React.FC = () => {
+const App: FC = () => {
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
   const [friendsInfo, setFriendsInfo] = useState<IFriend[]>([]);
   const [chatHistoryInfo, setChatHistoryInfo] = useState<IUserChat[]>([]);
