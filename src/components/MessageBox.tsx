@@ -1,6 +1,6 @@
-import { useState, FC } from "react";
+import { useState, FC, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
-import { IUserChat } from "../types";
+import { IDraftMessage, IUserChat } from "../types";
 
 const MessageInputContainer = styled.div`
   display: flex;
@@ -41,6 +41,8 @@ interface MessageBoxProps {
   selectedChat: IUserChat | undefined;
   chatHistoryInfo: IUserChat[];
   setChatHistoryInfo: (updatedChatHistory: IUserChat[]) => void;
+  draftMessages: IDraftMessage[];
+  setDraftMessages: (updatedDraftMessages: IDraftMessage[]) => void;
 }
 
 const MessageBox: FC<MessageBoxProps> = ({
@@ -48,11 +50,20 @@ const MessageBox: FC<MessageBoxProps> = ({
   selectedChat,
   chatHistoryInfo,
   setChatHistoryInfo,
+  draftMessages,
+  setDraftMessages,
 }) => {
-  const [newMessage, setNewMessage] = useState("");
+  const [newMessage, setNewMessage] = useState<string | undefined>("");
+
+  useEffect(() => {
+    const selectedDraftMessage = draftMessages.find(
+      (userMessage) => userMessage.userId === selectedUserId
+    );
+    setNewMessage(selectedDraftMessage?.message);
+  }, [draftMessages, selectedUserId]);
 
   const handleSendMessage = () => {
-    if (!newMessage.trim() || !selectedChat) return;
+    if (!newMessage?.trim() || !selectedChat) return;
 
     const updatedChat = {
       ...selectedChat,
@@ -73,6 +84,39 @@ const MessageBox: FC<MessageBoxProps> = ({
 
     setChatHistoryInfo(updatedChatHistory);
     setNewMessage("");
+    if (selectedUserId === null) {
+      return;
+    }
+    const newDraftMessage: IDraftMessage = {
+      userId: selectedUserId,
+      message: "",
+    };
+    const updatedMessages = draftMessages.map((message) => {
+      if (message.userId === selectedUserId) {
+        return newDraftMessage;
+      } else {
+        return message;
+      }
+    });
+    setDraftMessages(updatedMessages);
+  };
+
+  const handleMessageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (selectedUserId === null) {
+      return;
+    }
+    const newDraftMessage: IDraftMessage = {
+      userId: selectedUserId,
+      message: e.target.value,
+    };
+    const updatedMessages = draftMessages.map((message) => {
+      if (message.userId === selectedUserId) {
+        return newDraftMessage;
+      } else {
+        return message;
+      }
+    });
+    setDraftMessages(updatedMessages);
   };
 
   return (
@@ -81,7 +125,7 @@ const MessageBox: FC<MessageBoxProps> = ({
         type="text"
         placeholder="Type your message..."
         value={newMessage}
-        onChange={(e) => setNewMessage(e.target.value)}
+        onChange={handleMessageChange}
       />
       <SendButton onClick={handleSendMessage}>Send</SendButton>
     </MessageInputContainer>

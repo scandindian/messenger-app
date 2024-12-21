@@ -4,7 +4,7 @@ import ChatHistory from "./ChatHistory";
 import FriendsList from "./FriendsList";
 import friendsData from "../data/friendsData.json";
 import chatHistoryData from "../data/chatHistoryData.json";
-import { IFriend, IUserChat } from "../types";
+import { IDraftMessage, IFriend, IUserChat } from "../types";
 import { getFriendsListChronologically } from "../utility";
 
 const AppContainer = styled.div`
@@ -44,10 +44,21 @@ const App: FC = () => {
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
   const [friendsInfo, setFriendsInfo] = useState<IFriend[]>([]);
   const [chatHistoryInfo, setChatHistoryInfo] = useState<IUserChat[]>([]);
+  const [draftMessages, setDraftMessages] = useState<IDraftMessage[]>([]);
 
   useEffect(() => {
-    setFriendsInfo(getFriendsListChronologically(friendsData));
+    const chronologicalFriendsData = getFriendsListChronologically(friendsData);
+    setFriendsInfo(chronologicalFriendsData);
     setChatHistoryInfo(chatHistoryData);
+    const draftMessagesList = chronologicalFriendsData.map(
+      (friend): IDraftMessage => {
+        return {
+          userId: friend.id,
+          message: "",
+        };
+      }
+    );
+    setDraftMessages(draftMessagesList);
   }, []);
 
   return (
@@ -65,6 +76,8 @@ const App: FC = () => {
           chatHistoryInfo={chatHistoryInfo}
           friendsInfo={friendsInfo}
           setChatHistoryInfo={setChatHistoryInfo}
+          draftMessages={draftMessages}
+          setDraftMessages={setDraftMessages}
         />
       </ChatSection>
     </AppContainer>

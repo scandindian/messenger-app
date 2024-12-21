@@ -17,3 +17,8 @@ export interface IUserChat {
   userId: number;
   chatHistory: IMessage[];
 }
+
+export interface IDraftMessage {
+  userId: number;
+  message: string;
+}

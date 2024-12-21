@@ -1,6 +1,6 @@
 import { useState, useEffect, FC } from "react";
 import styled from "styled-components";
-import { IFriend, IUserChat } from "../types";
+import { IDraftMessage, IFriend, IUserChat } from "../types";
 import MessageList from "./MessageList";
 import MessageBox from "./MessageBox";
 
@@ -20,6 +20,8 @@ interface ChatHistoryProps {
   chatHistoryInfo: IUserChat[];
   friendsInfo: IFriend[];
   setChatHistoryInfo: (updatedChatHistory: IUserChat[]) => void;
+  draftMessages: IDraftMessage[];
+  setDraftMessages: (updatedDraftMessages: IDraftMessage[]) => void;
 }
 
 const ChatHistory: FC<ChatHistoryProps> = ({
@@ -27,6 +29,8 @@ const ChatHistory: FC<ChatHistoryProps> = ({
   chatHistoryInfo,
   friendsInfo,
   setChatHistoryInfo,
+  draftMessages,
+  setDraftMessages,
 }) => {
   const [selectedChat, setSelectedChat] = useState<IUserChat | undefined>(
     chatHistoryInfo.find((chat) => chat.userId === selectedUserId)
@@ -60,6 +64,8 @@ const ChatHistory: FC<ChatHistoryProps> = ({
         selectedChat={selectedChat}
         setChatHistoryInfo={setChatHistoryInfo}
         chatHistoryInfo={chatHistoryInfo}
+        draftMessages={draftMessages}
+        setDraftMessages={setDraftMessages}
       />
     </FullChatContainer>
   );
